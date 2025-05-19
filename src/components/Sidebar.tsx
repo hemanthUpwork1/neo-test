@@ -131,9 +131,15 @@ const Sidebar: React.FC = () => {
             ml: "auto",
             mr: 1,
             display: { xs: "none", sm: "flex" },
+            background: "#705d4a",
+            padding: 0,
+            "&:hover": {
+              background: "#705d4a",
+              opacity: 0.9
+            },
           }}
         >
-          {isSidebarExpanded ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          {isSidebarExpanded ? <ChevronLeftIcon sx={{ color: "#FFF" }} /> : <ChevronRightIcon sx={{ color: "#FFF" }} />}
         </IconButton>
       </Box>
       <Divider />
