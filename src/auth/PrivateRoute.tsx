@@ -3,6 +3,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
 import { CircularProgress, Box } from "@mui/material";
 
+import LoadingSpinner from "../components/Loading";
+
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const {
     isLoading,
@@ -31,16 +33,7 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   }, [isLoading, isAuthenticated, getAccessTokenSilently, loginWithRedirect]);
 
   if (isLoading || accessGranted === null) {
-    return (
-      <Box
-        sx={{ flex: 1 }}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <CircularProgress />
-      </Box>
-    );
+    return <LoadingSpinner />;
   }
 
   if (!accessGranted) {
