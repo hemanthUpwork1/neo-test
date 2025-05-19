@@ -96,7 +96,8 @@ const Sidebar: React.FC = () => {
     <>
       <Box
         sx={{
-          height: 64,
+          height: { xs: 56, sm: 64 },
+          minHeight: { xs: 56, sm: 64 },
           display: "flex",
           alignItems: "center",
           pl: 2,
