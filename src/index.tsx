@@ -13,8 +13,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Auth0Provider
-      domain={authConfig.domain as any}
-      clientId={authConfig.clientId as any}
+      domain={authConfig.domain as string}
+      clientId={authConfig.clientId as string}
       authorizationParams={authConfig.authorizationParams}
     >
       <BrowserRouter>

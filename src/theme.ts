@@ -1,20 +1,20 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
     background: {
-      default: '#f8fafc',
+      default: "#f8fafc",
     },
     primary: {
-      main: '#222',
+      main: "#222",
     },
     secondary: {
-      main: '#888',
+      main: "#888",
     },
   },
   typography: {
-    fontFamily: 'Inter, Arial, sans-serif',
+    fontFamily: "Inter, Arial, sans-serif",
   },
 });
 
-export default theme; 
+export default theme;

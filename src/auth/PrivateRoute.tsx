@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
+import { CircularProgress, Box } from "@mui/material";
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const {
@@ -30,7 +31,16 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   }, [isLoading, isAuthenticated, getAccessTokenSilently, loginWithRedirect]);
 
   if (isLoading || accessGranted === null) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        sx={{ flex: 1 }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   if (!accessGranted) {

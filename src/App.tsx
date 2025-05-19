@@ -42,7 +42,7 @@ const App: React.FC = () => {
       <Sidebar />
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
         <Topbar pageTitle={getPageTitle(location.pathname)} />
-        <Box sx={{ flex: 1, p: 0 }}>
+        <Box sx={{ flex: 1, p: 0, display: "flex" }}>
           <Routes>
             <Route
               path="/"

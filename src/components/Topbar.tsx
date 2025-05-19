@@ -10,7 +10,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 interface TopbarProps {
   pageTitle: string;
