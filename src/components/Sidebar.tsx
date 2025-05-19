@@ -100,7 +100,7 @@ const Sidebar: React.FC = () => {
           minHeight: { xs: 56, sm: 64 },
           display: "flex",
           alignItems: "center",
-          pl: 2,
+          px: 2,
           justifyContent: isSidebarExpanded ? "space-between" : "center",
         }}
       >
