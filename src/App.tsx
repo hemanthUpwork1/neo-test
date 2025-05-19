@@ -1,26 +1,49 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Sidebar from './components/Sidebar';
+import Topbar from './components/Topbar';
+import Dashboard from './pages/Dashboard';
+import Supervisor from './pages/Supervisor';
+import Autotask from './pages/Autotask';
+import L1Queue from './pages/L1Queue';
+import L2Queue from './pages/L2Queue';
+import Azure from './pages/Azure';
+import ChatAssistant from './pages/ChatAssistant';
+import KnowledgeBase from './pages/KnowledgeBase';
+import Skills from './pages/Skills';
+import Workflows from './pages/Workflows';
+import Customers from './pages/Customers';
+import Integrations from './pages/Integrations';
+import PrivateRoute from './auth/PrivateRoute';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{ display: 'flex', height: '100vh', background: '#f8fafc' }}>
+      <Sidebar />
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <Topbar />
+        <Box sx={{ flex: 1, p: 0 }}>
+          <Routes>
+            {/* <Route path="/" element={<Navigate to="/supervisor" replace />} /> */}
+            <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path="/supervisor" element={<PrivateRoute><Supervisor /></PrivateRoute>} />
+            <Route path="/autotask" element={<PrivateRoute><Autotask /></PrivateRoute>} />
+            <Route path="/l1-queue" element={<PrivateRoute><L1Queue /></PrivateRoute>} />
+            <Route path="/l2-queue" element={<PrivateRoute><L2Queue /></PrivateRoute>} />
+            <Route path="/azure" element={<PrivateRoute><Azure /></PrivateRoute>} />
+            <Route path="/chat-assistant" element={<PrivateRoute><ChatAssistant /></PrivateRoute>} />
+            <Route path="/knowledge-base" element={<PrivateRoute><KnowledgeBase /></PrivateRoute>} />
+            <Route path="/skills" element={<PrivateRoute><Skills /></PrivateRoute>} />
+            <Route path="/workflows" element={<PrivateRoute><Workflows /></PrivateRoute>} />
+            <Route path="/customers" element={<PrivateRoute><Customers /></PrivateRoute>} />
+            <Route path="/integrations" element={<PrivateRoute><Integrations /></PrivateRoute>} />
+          </Routes>
+        </Box>
+      </Box>
+    </Box>
   );
-}
+};
 
-export default App;
+export default App; 

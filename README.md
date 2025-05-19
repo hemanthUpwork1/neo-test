@@ -1,46 +1,43 @@
-# Getting Started with Create React App
+# Neo Auth0 React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React + TypeScript app with Auth0 authentication, a sidebar, and a topbar UI inspired by Figma design.
 
-## Available Scripts
+## Features
+- Sidebar and topbar navigation
+- All pages protected by Auth0 authentication
+- User info (name, avatar) from Auth0 in sidebar
+- Modern UI with Material-UI (MUI)
 
-In the project directory, you can run:
+## Setup
 
-### `npm start`
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. **Configure Auth0:**
+   - Create an Auth0 application at https://auth0.com/
+   - Copy your domain and client ID into `.env`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. **Start the app:**
+   ```bash
+   npm start
+   ```
 
-### `npm test`
+4. **Login:**
+   - You will be redirected to Auth0 to log in. After login, your name and avatar will appear in the sidebar.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Structure
+- `src/components/Sidebar.tsx` — Sidebar navigation
+- `src/components/Topbar.tsx` — Topbar
+- `src/auth/PrivateRoute.tsx` — Route protection
+- `src/pages/` — Empty page components for each menu item
+- `src/theme.ts` — MUI theme (optional)
 
-### `npm run build`
+## Customization
+- Add your own content to the page components in `src/pages/`.
+- Adjust the theme in `src/theme.ts`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Built with React, TypeScript, MUI, Auth0, and React Router.** 
