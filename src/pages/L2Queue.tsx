@@ -1,3 +1,3 @@
-import React from 'react';
+import React from "react";
 const L2Queue: React.FC = () => <></>;
-export default L2Queue; 
+export default L2Queue;

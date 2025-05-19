@@ -1,3 +1,3 @@
-import React from 'react';
+import React from "react";
 const KnowledgeBase: React.FC = () => <></>;
-export default KnowledgeBase; 
+export default KnowledgeBase;

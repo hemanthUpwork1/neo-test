@@ -3,7 +3,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isLoading, isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0();
+  const {
+    isLoading,
+    isAuthenticated,
+    loginWithRedirect,
+    getAccessTokenSilently,
+  } = useAuth0();
   const [accessGranted, setAccessGranted] = useState<boolean>(false);
 
   useEffect(() => {

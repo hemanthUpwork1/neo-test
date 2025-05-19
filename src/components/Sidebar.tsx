@@ -12,8 +12,6 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import ChatIcon from '@mui/icons-material/Chat';
 import Collapse from '@mui/material/Collapse';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -133,20 +131,17 @@ const Sidebar: React.FC = () => {
             >
               {section.icon}
               {isSidebarExpanded && (
-                <>
-                  <Typography 
-                    variant="body2" 
-                    sx={{ 
-                      pl: 1, 
-                      color: '#888', 
-                      flex: 1,
-                      fontWeight: 600 
-                    }}
-                  >
-                    {section.section}
-                  </Typography>
-                  {expandedSections[section.section] ? <ExpandLess /> : <ExpandMore />}
-                </>
+                <Typography 
+                  variant="body2" 
+                  sx={{ 
+                    pl: 1, 
+                    color: '#000000',
+                    flex: 1,
+                    fontWeight: 600 
+                  }}
+                >
+                  {section.section}
+                </Typography>
               )}
             </ListItemButton>
             {isSidebarExpanded && (
@@ -181,18 +176,20 @@ const Sidebar: React.FC = () => {
                                   },
                                 }}
                               >
-                                <span>Workflows</span>
+                                <span style={{ color: '#1E3A8A' }}>Workflows</span>
                               </Badge>
                             }
                             primaryTypographyProps={{
-                              variant: 'body2'
+                              variant: 'body2',
+                              sx: { color: '#1E3A8A' }
                             }}
                           />
                         ) : (
                           <ListItemText 
                             primary={item.text} 
                             primaryTypographyProps={{
-                              variant: 'body2'
+                              variant: 'body2',
+                              sx: { color: '#1E3A8A' }
                             }}
                           />
                         )}

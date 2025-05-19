@@ -1,3 +1,3 @@
-import React from 'react';
+import React from "react";
 const Autotask: React.FC = () => <></>;
-export default Autotask; 
+export default Autotask;

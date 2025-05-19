@@ -1,3 +1,3 @@
-import React from 'react';
+import React from "react";
 const ChatAssistant: React.FC = () => <></>;
-export default ChatAssistant; 
+export default ChatAssistant;
