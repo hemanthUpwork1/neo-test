@@ -10,31 +10,32 @@ import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import HomeIcon from '@mui/icons-material/Home';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import ChatIcon from '@mui/icons-material/Chat';
-import PeopleIcon from '@mui/icons-material/People';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Badge from '@mui/material/Badge';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const menu = [
   {
     section: 'Neo Analytics',
-    icon: <HomeIcon />,
+    icon: <BarChartIcon />,
     items: [
       { text: 'Dashboard', path: '/dashboard' },
     ],
   },
   {
-    section: 'Operations',
-    icon: <AssignmentIcon />,
+    section: 'Supervisor',
+    icon: <EditNoteIcon />,
     items: [
-      { text: 'Supervisor', path: '/supervisor' },
       { text: 'All Autotask', path: '/autotask' },
       { text: 'L1 Queue', path: '/l1-queue' },
       { text: 'L2 Queue', path: '/l2-queue' },
@@ -53,7 +54,7 @@ const menu = [
   },
   {
     section: 'Accounts',
-    icon: <PeopleIcon />,
+    icon: <ManageAccountsIcon />,
     items: [
       { text: 'Customers', path: '/customers' },
       { text: 'Integrations', path: '/integrations' },
@@ -65,8 +66,14 @@ const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, isAuthenticated, logout } = useAuth0();
+  const [mobileOpen, setMobileOpen] = useState(false);
   
-  const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({});
+  const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>(
+    menu.reduce((acc, section) => ({
+      ...acc,
+      [section.section]: true
+    }), {})
+  );
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
   const handleSectionClick = (section: string) => {
@@ -80,35 +87,24 @@ const Sidebar: React.FC = () => {
     setIsSidebarExpanded(!isSidebarExpanded);
   };
 
-  return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: isSidebarExpanded ? 240 : 64,
-        flexShrink: 0,
-        transition: 'width 0.2s',
-        [`& .MuiDrawer-paper`]: { 
-          width: isSidebarExpanded ? 240 : 64, 
-          boxSizing: 'border-box', 
-          background: '#fff', 
-          borderRight: '1px solid #f0f0f0',
-          transition: 'width 0.2s',
-          overflowX: 'hidden'
-        },
-      }}
-    >
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawer = (
+    <>
       <Box sx={{ 
         height: 64, 
         display: 'flex', 
         alignItems: 'center', 
         pl: 2,
-        justifyContent: isSidebarExpanded ? 'flex-start' : 'center'
+        justifyContent: isSidebarExpanded ? 'space-between' : 'center'
       }}>
         {isSidebarExpanded ? (
-          <>
+          <Box sx={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'center' }}>
             <img src="/logo192.png" alt="Neo" style={{ width: 36, marginRight: 8 }} />
             <Typography variant="h6" fontWeight={700}>Neo</Typography>
-          </>
+          </Box>
         ) : (
           <img src="/logo192.png" alt="Neo" style={{ width: 36 }} />
         )}
@@ -163,12 +159,43 @@ const Sidebar: React.FC = () => {
                         onClick={() => navigate(item.path)}
                         sx={{ pl: 6 }}
                       >
-                        <ListItemText 
-                          primary={item.text} 
-                          primaryTypographyProps={{
-                            variant: 'body2'
-                          }}
-                        />
+                        {item.text === 'Workflows' ? (
+                          <ListItemText
+                            primary={
+                              <Badge
+                                badgeContent={10}
+                                color="warning"
+                                sx={{
+                                  '& .MuiBadge-badge': {
+                                    right: -18,
+                                    top: 8,
+                                    fontSize: 12,
+                                    fontWeight: 600,
+                                    width: 22,
+                                    height: 22,
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    p: 0,
+                                  },
+                                }}
+                              >
+                                <span>Workflows</span>
+                              </Badge>
+                            }
+                            primaryTypographyProps={{
+                              variant: 'body2'
+                            }}
+                          />
+                        ) : (
+                          <ListItemText 
+                            primary={item.text} 
+                            primaryTypographyProps={{
+                              variant: 'body2'
+                            }}
+                          />
+                        )}
                       </ListItemButton>
                     </ListItem>
                   ))}
@@ -219,7 +246,7 @@ const Sidebar: React.FC = () => {
                 sx={{ ml: 1 }}
                 onClick={() => logout()}
               >
-                <ArrowForwardIosIcon fontSize="small" />
+                <LogoutIcon fontSize="small" />
               </IconButton>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, width: '100%' }}>
@@ -271,7 +298,76 @@ const Sidebar: React.FC = () => {
           </Box>
         )}
       </Box>
-    </Drawer>
+    </>
+  );
+
+  return (
+    <>
+      {/* Mobile drawer */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile
+        }}
+        sx={{
+          display: { xs: 'block', sm: 'none' },
+          '& .MuiDrawer-paper': { 
+            width: 240,
+            boxSizing: 'border-box',
+            background: '#fff',
+            borderRight: '1px solid #f0f0f0',
+          },
+        }}
+      >
+        {drawer}
+      </Drawer>
+
+      {/* Desktop drawer */}
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: { xs: 'none', sm: 'block' },
+          width: isSidebarExpanded ? 240 : 64,
+          flexShrink: 0,
+          transition: 'width 0.2s',
+          [`& .MuiDrawer-paper`]: { 
+            width: isSidebarExpanded ? 240 : 64, 
+            boxSizing: 'border-box', 
+            background: '#fff', 
+            borderRight: '1px solid #f0f0f0',
+            transition: 'width 0.2s',
+            overflowX: 'hidden'
+          },
+        }}
+      >
+        {drawer}
+      </Drawer>
+
+      {/* Mobile menu button */}
+      <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        edge="start"
+        onClick={handleDrawerToggle}
+        sx={{ 
+          mr: 2,
+          display: { sm: 'none' },
+          position: 'fixed',
+          top: 16,
+          left: 16,
+          zIndex: 1200,
+          backgroundColor: 'white',
+          boxShadow: 1,
+          '&:hover': {
+            backgroundColor: 'white',
+          }
+        }}
+      >
+        <MenuIcon />
+      </IconButton>
+    </>
   );
 };
 

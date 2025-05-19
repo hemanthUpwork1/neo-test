@@ -12,7 +12,7 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
         await loginWithRedirect();
       } else {
         try {
-          await getAccessTokenSilently(); // Optional: You can store or use it here
+          await getAccessTokenSilently();
           setAccessGranted(true);
         } catch (err) {
           console.error("Error getting token", err);

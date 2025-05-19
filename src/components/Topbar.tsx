@@ -10,8 +10,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-const Topbar: React.FC = () => {
+interface TopbarProps {
+  pageTitle: string;
+}
+
+const Topbar: React.FC<TopbarProps> = ({ pageTitle }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -23,21 +28,21 @@ const Topbar: React.FC = () => {
   };
 
   return (
-    <AppBar position="static" elevation={0} sx={{ background: '#fff', color: '#222', boxShadow: 'none', borderBottom: '1px solid #f0f0f0', height: 64, justifyContent: 'center' }}>
-      <Toolbar sx={{ minHeight: 64, display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h6" fontWeight={600} sx={{ color: '#222' }}>
-          {/* Page title placeholder, can be dynamic */}
+    <AppBar position="static" elevation={0} sx={{ background: '#fff', color: '#222', boxShadow: 'none', borderBottom: '1px solid #f0f0f0', height: { xs: 56, sm: 64 }, justifyContent: 'center' }}>
+      <Toolbar sx={{ minHeight: { xs: 56, sm: 64 }, display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant="h6" fontWeight={600} sx={{ color: '#222', fontSize: { xs: '1rem', sm: '1.25rem' } }}>
+          {pageTitle}
         </Typography>
-        <Box>
-          <IconButton size="large" color="inherit">
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <IconButton size="large" color="inherit" sx={{ display: { xs: 'none', sm: 'flex' } }}>
             <NotificationsNoneIcon />
           </IconButton>
-          <IconButton size="large" color="inherit">
+          <IconButton size="large" color="inherit" sx={{ display: { xs: 'none', sm: 'flex' } }}>
             <SettingsIcon />
           </IconButton>
           <IconButton size="large" color="inherit" onClick={handleMenu}>
-            <Avatar sx={{ width: 24, height: 24, mr: 1 }} src="https://flagcdn.com/us.svg" />
-            <Typography variant="body2" sx={{ mr: 0.5 }}>Eng (US)</Typography>
+            <Avatar sx={{ width: { xs: 20, sm: 24 }, height: { xs: 20, sm: 24 }, mr: 1 }} src="https://flagcdn.com/us.svg" />
+            <Typography variant="body2" sx={{ mr: 0.5, display: { xs: 'none', sm: 'block' } }}>Eng (US)</Typography>
             <LanguageIcon />
           </IconButton>
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
 import Dashboard from './pages/Dashboard';
-import Supervisor from './pages/Supervisor';
 import Autotask from './pages/Autotask';
 import L1Queue from './pages/L1Queue';
 import L2Queue from './pages/L2Queue';
@@ -18,17 +17,35 @@ import Integrations from './pages/Integrations';
 import PrivateRoute from './auth/PrivateRoute';
 
 const App: React.FC = () => {
+  const location = useLocation();
+  
+  const getPageTitle = (path: string) => {
+    const pathMap: { [key: string]: string } = {
+      '/': 'Dashboard',
+      '/dashboard': 'Dashboard',
+      '/autotask': 'Autotask',
+      '/l1-queue': 'L1 Queue',
+      '/l2-queue': 'L2 Queue',
+      '/azure': 'Azure',
+      '/chat-assistant': 'Chat Assistant',
+      '/knowledge-base': 'Knowledge Base',
+      '/skills': 'Skills',
+      '/workflows': 'Workflows',
+      '/customers': 'Customers',
+      '/integrations': 'Integrations'
+    };
+    return pathMap[path] || 'Dashboard';
+  };
+
   return (
     <Box sx={{ display: 'flex', height: '100vh', background: '#f8fafc' }}>
       <Sidebar />
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <Topbar />
+        <Topbar pageTitle={getPageTitle(location.pathname)} />
         <Box sx={{ flex: 1, p: 0 }}>
           <Routes>
-            {/* <Route path="/" element={<Navigate to="/supervisor" replace />} /> */}
             <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-            <Route path="/supervisor" element={<PrivateRoute><Supervisor /></PrivateRoute>} />
             <Route path="/autotask" element={<PrivateRoute><Autotask /></PrivateRoute>} />
             <Route path="/l1-queue" element={<PrivateRoute><L1Queue /></PrivateRoute>} />
             <Route path="/l2-queue" element={<PrivateRoute><L2Queue /></PrivateRoute>} />
