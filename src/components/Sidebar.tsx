@@ -144,7 +144,7 @@ const Sidebar: React.FC = () => {
               onClick={() => handleSectionClick(section.section)}
               sx={{
                 pl: isSidebarExpanded ? 2 : 1,
-                pt: 2,
+                pt: 0.5,
                 justifyContent: isSidebarExpanded ? "flex-start" : "center",
               }}
             >
@@ -175,7 +175,7 @@ const Sidebar: React.FC = () => {
                       <ListItemButton
                         selected={location.pathname === item.path}
                         onClick={() => navigate(item.path)}
-                        sx={{ pl: 6 }}
+                        sx={{ pl: 6, py: 0.5}}
                       >
                         {item.text === "Workflows" ? (
                           <ListItemText
@@ -199,14 +199,14 @@ const Sidebar: React.FC = () => {
                                   },
                                 }}
                               >
-                                <span style={{ color: "#1E3A8A" }}>
+                                <span style={{ color: "#666666" }}>
                                   Workflows
                                 </span>
                               </Badge>
                             }
                             primaryTypographyProps={{
                               variant: "body2",
-                              sx: { color: "#1E3A8A" },
+                              sx: { color: "#666666" },
                             }}
                           />
                         ) : (
@@ -214,7 +214,7 @@ const Sidebar: React.FC = () => {
                             primary={item.text}
                             primaryTypographyProps={{
                               variant: "body2",
-                              sx: { color: "#1E3A8A" },
+                              sx: { color: "#666666" },
                             }}
                           />
                         )}
