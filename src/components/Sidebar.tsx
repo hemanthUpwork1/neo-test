@@ -144,7 +144,7 @@ const Sidebar: React.FC = () => {
               onClick={() => handleSectionClick(section.section)}
               sx={{
                 pl: isSidebarExpanded ? 2 : 1,
-                pt: 0.5,
+                pt: 0.2,
                 justifyContent: isSidebarExpanded ? "flex-start" : "center",
               }}
             >
@@ -175,7 +175,7 @@ const Sidebar: React.FC = () => {
                       <ListItemButton
                         selected={location.pathname === item.path}
                         onClick={() => navigate(item.path)}
-                        sx={{ pl: 6, py: 0.5}}
+                        sx={{ pl: 6, py: 0.2}}
                       >
                         {item.text === "Workflows" ? (
                           <ListItemText
