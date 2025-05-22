@@ -10,27 +10,25 @@ import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import ChatIcon from "@mui/icons-material/Chat";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
+import chartIcon from "../assets/chart.svg";
+import noteIcon from "../assets/note.png";
+import neoIcon from "../assets/neo.svg";
+import accountIcon from "../assets/account.png";
 
 const menu = [
   {
     section: "Neo Analytics",
-    icon: <BarChartIcon />,
+    icon: <img src={chartIcon} alt="chart" />,
     items: [{ text: "Dashboard", path: "/dashboard" }],
   },
   {
     section: "Supervisor",
-    icon: <EditNoteIcon />,
+    icon: <img src={noteIcon} alt="note" />,
     items: [
       { text: "All Autotask", path: "/autotask" },
       { text: "L1 Queue", path: "/l1-queue" },
@@ -40,7 +38,7 @@ const menu = [
   },
   {
     section: "Neo AI",
-    icon: <ChatIcon />,
+    icon: <img src={neoIcon} alt="neo" />,
     items: [
       { text: "Chat Assistant", path: "/chat-assistant" },
       { text: "knowledge Base", path: "/knowledge-base" },
@@ -50,7 +48,7 @@ const menu = [
   },
   {
     section: "Accounts",
-    icon: <ManageAccountsIcon />,
+    icon: <img src={accountIcon} alt="account" />,
     items: [
       { text: "Customers", path: "/customers" },
       { text: "Integrations", path: "/integrations" },
@@ -58,11 +56,16 @@ const menu = [
   },
 ];
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isSidebarExpanded: boolean;
+  handleDrawerToggle: () => void;
+  mobileOpen: boolean;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isSidebarExpanded, handleDrawerToggle, mobileOpen }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, isAuthenticated, logout } = useAuth0();
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   const [expandedSections, setExpandedSections] = useState<{
     [key: string]: boolean;
@@ -75,21 +78,12 @@ const Sidebar: React.FC = () => {
       {}
     )
   );
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
   const handleSectionClick = (section: string) => {
     setExpandedSections((prev) => ({
       ...prev,
       [section]: !prev[section],
     }));
-  };
-
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
   };
 
   const drawer = (
@@ -125,22 +119,6 @@ const Sidebar: React.FC = () => {
         ) : (
           <img src="/logo192.png" alt="Neo" style={{ width: 36 }} />
         )}
-        <IconButton
-          onClick={toggleSidebar}
-          sx={{
-            ml: "auto",
-            mr: 1,
-            display: { xs: "none", sm: "flex" },
-            background: "#705d4a",
-            padding: 0,
-            "&:hover": {
-              background: "#705d4a",
-              opacity: 0.9
-            },
-          }}
-        >
-          {isSidebarExpanded ? <ChevronLeftIcon sx={{ color: "#FFF" }} /> : <ChevronRightIcon sx={{ color: "#FFF" }} />}
-        </IconButton>
       </Box>
       <Divider />
       <List>
@@ -322,7 +300,6 @@ const Sidebar: React.FC = () => {
             </Box>
           </>
         )}
-        {/* Collapsed state: just avatar centered */}
         {isAuthenticated && user && !isSidebarExpanded && (
           <Box
             sx={{ width: "100%", display: "flex", justifyContent: "center" }}
@@ -346,7 +323,7 @@ const Sidebar: React.FC = () => {
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile
+          keepMounted: true,
         }}
         sx={{
           display: { xs: "block", sm: "none" },

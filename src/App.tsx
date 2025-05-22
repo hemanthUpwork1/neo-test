@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Sidebar from "./components/Sidebar";
@@ -15,9 +15,22 @@ import Workflows from "./pages/Workflows";
 import Customers from "./pages/Customers";
 import Integrations from "./pages/Integrations";
 import PrivateRoute from "./auth/PrivateRoute";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const App: React.FC = () => {
   const location = useLocation();
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarExpanded(!isSidebarExpanded);
+  };
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   const getPageTitle = (path: string) => {
     const pathMap: { [key: string]: string } = {
@@ -39,7 +52,11 @@ const App: React.FC = () => {
 
   return (
     <Box sx={{ display: "flex", height: "100vh", background: "#f8fafc" }}>
-      <Sidebar />
+      <Sidebar
+        isSidebarExpanded={isSidebarExpanded}
+        handleDrawerToggle={handleDrawerToggle}
+        mobileOpen={mobileOpen}
+      />
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
         <Topbar pageTitle={getPageTitle(location.pathname)} />
         <Box sx={{ flex: 1, p: 0, display: "flex" }}>
@@ -143,6 +160,29 @@ const App: React.FC = () => {
           </Routes>
         </Box>
       </Box>
+
+      <IconButton
+        onClick={toggleSidebar}
+        sx={{
+          position: "fixed",
+          top: 54,
+          left: isSidebarExpanded ? 230 : 54,
+          zIndex: 1201,
+          background: "#705d4a",
+          color: "#FFF",
+          width: 20,
+          height: 20,
+          boxShadow: 1,
+          transition: "left 0.2s",
+          "&:hover": {
+            background: "#705d4a",
+            opacity: 0.9,
+          },
+          display: { xs: "none", sm: "flex" },
+        }}
+      >
+        {isSidebarExpanded ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+      </IconButton>
     </Box>
   );
 };
